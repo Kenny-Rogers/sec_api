@@ -14,7 +14,10 @@
         //initializing for personnel
         $system_user = new SystemUser();
         $user = new Personnel();
-      } else {
+      } elseif($user_type == 'location'){
+        //initializing for complainant
+        $user = new Complainant();
+      }else {
         //if USER TYPE is not specified
         echo json_encode(array("status" => 0, "message" => "no user type specified in url"));
         return; 

@@ -15,5 +15,6 @@
     require('../includes/models/patrol_team_member.php');
     require('../includes/models/deployment_plan.php');
     require('../includes/models/enrollment.php');
+    require('../includes/models/location.php');
 
 ?>

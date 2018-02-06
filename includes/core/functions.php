@@ -18,4 +18,23 @@
     return  $mysql_date;
     }
 
+    //get the current date
+    function get_current_date($type="dt"){
+        date_default_timezone_set('Africa/Accra');
+        switch ($type) {
+            //case only date is requested
+            case 'd':
+                $date = date("Y-m-d"); 
+                return $date;
+                break;
+
+            //case date time is requested
+            case 'dt':
+            default:
+                $date_time = date("Y-m-d H:i:s"); 
+                return $date_time;
+                break;
+        }
+
+    }
 ?>

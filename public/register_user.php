@@ -32,10 +32,13 @@
       }  elseif ($user_type == 'dep_plan') {
         //registeration for personnel
         $user = new DeploymentPlan(); 
-        $user->set_field("date_created", '2017-10-10');
+        $user->set_field("date_created", get_current_date('d'));
       } elseif ($user_type == 'enroll_team') {
         //registeration for personnel
         $user = new Enrollment(); 
+      }elseif ($user_type == 'location') {
+        //registeration for location
+        $user = new Location(); 
       } else {
         //if USER TYPE is not specified
         echo json_encode(array("status" => 0, "message" => "no user type specified in url"));
@@ -59,7 +62,10 @@
         //registeration for deployment_plan
         $date = $user->get_field("schedule_for_date");
         $user->set_field("schedule_for_date", mysql_date_format(strtotime($date)));
-      } 
+      } elseif ($user_type == "location"){
+        //setting the last_updated time
+        $user->set_update_time(); 
+      }
 
       //creating a new user
       if($user->create()){
