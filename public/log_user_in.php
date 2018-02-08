@@ -33,7 +33,21 @@
                 break;
             
             case 'complainant':
-                # code...
+                //login details
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+
+                //checking from the db
+                $condition = " email='$email' AND password='$password'"; 
+                $result_array = Complainant::find_all_with($condition);
+                $complainant = array_shift($result_array);
+
+                //checking the results of the db
+                if($complainant){
+                    echo json_encode(array("status" => 4, "message" => "login details valid")); 
+                } else {
+                    echo json_encode(array("status" => 0, "message" => "login details invalid"));
+                }
                 break;
 
             default:
