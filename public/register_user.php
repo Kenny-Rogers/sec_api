@@ -39,6 +39,9 @@
       }elseif ($user_type == 'location') {
         //registeration for location
         $user = new Location(); 
+      }elseif ($user_type == 'complainant') {
+        //registeration for location
+        $user = new Complainant(); 
       } else {
         //if USER TYPE is not specified
         echo json_encode(array("status" => 0, "message" => "no user type specified in url"));
