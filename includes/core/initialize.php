@@ -18,5 +18,6 @@
     require('../includes/models/location.php');
     require('../includes/models/message.php');
     require('../includes/models/announcement.php');
+    require('../includes/models/complain.php');
 
 ?>

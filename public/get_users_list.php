@@ -63,7 +63,7 @@
           $index++;
         }
 
-    } elseif($_GET['user_type'] == 'system_user') {
+    } elseif ($_GET['user_type'] == 'system_user') {
       //get all system users
       $system_users = SystemUser::find_all();
       //initialize empty array to hold thier details
@@ -98,6 +98,66 @@
 
       foreach($dep_plans as $dep_plan){
           $response[] = $dep_plan->get_array(); 
+        }
+
+    } elseif ($_GET['user_type'] == 'location') {
+        $for_user = $_GET['for_user']; //team or complainant
+        $sql = "SELECT * FROM location WHERE type_of_user='$for_user'";
+
+        $locations = Location::find_by_sql($sql);
+
+
+        //checking for the type of user for which location details are being requested for
+        if($for_user == 'complain'){
+          $response['type'] = 'complainant';
+          //if locations for a complain
+
+
+          $index = 1;
+          //forming results
+          foreach ($locations as $location) {
+            //get complainant details
+            $complain = Complain::find_by_id($location->get_field('user_id'));
+            $complainant = Complainant::find_by_id($complain->get_field('id'));
+
+            //creating data
+            $data = array();
+
+            //adding info to data array
+            $data['complain'] = $complain->get_array();
+            $data['location'] = $location->get_array();
+            $data['complainant'] = $complainant->get_array();
+
+            //adding the data to final response array
+            $response['data'][$index] = $data; 
+            $index++;
+          }
+        } elseif($for_user == 'patrol_team') {
+          //if a patrol team
+          $response['type'] = 'patrol_team';
+
+          $index = 1;
+          //forming results
+          foreach ($locations as $location) {
+            //get complainant details
+            $patrol_team = PatrolTeam::find_by_id($location->get_field('user_id'));
+            
+            //checking if the patrol_team is online
+            if(trim($patrol_team->get_field('status')) == "online"){
+              //creating data
+              $data = array();
+
+              //adding info to data array
+              $data['patrol_team'] = $patrol_team->get_array();
+              $data['location'] = $location->get_array();
+
+              //adding the data to final response array
+              $response['data'][$index] = $data; 
+              $index++;  
+            }
+            
+          }
+
         }
 
     }

@@ -4,7 +4,8 @@
 
   class Location extends DatabaseObject {
     protected static $table_name = "location";
-    protected static $db_field_keys = array('id', 'geo_lat', 'geo_long', 'team_id', 'last_updated');
+    protected static $db_field_keys = array('id', 'geo_lat', 'geo_long', 'user_id', 'last_updated',
+                                            'type_of_user');
 
     public function __construct(){
       $this->initialize_db_fields();
