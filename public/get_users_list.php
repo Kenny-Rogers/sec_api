@@ -101,9 +101,12 @@
         }
 
     } elseif ($_GET['user_type'] == 'location') {
-        $for_user = $_GET['for_user']; //team or complainant
+        $for_user = $_GET['for_user']; //patrol_team or complain
+
+        //sql stmnt for getting the locations
         $sql = "SELECT * FROM location WHERE type_of_user='$for_user'";
 
+        //receiving the locations
         $locations = Location::find_by_sql($sql);
 
 
