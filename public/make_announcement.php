@@ -8,6 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $announcement->set_field("title", $_POST['title']);
     $announcement->set_field("message", $_POST['message']);
     $announcement->set_field("author", $_POST['author']);
+    $date = strftime("%Y-%m-%d", time());
+    $announcement->set_field("date_published", $date);
 
     $file_info = pathinfo($_FILES["image"]["name"]);
     $ext=$file_info['extension'];

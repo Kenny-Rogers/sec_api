@@ -165,6 +165,21 @@
 
       //  return json_encode($response);
       //  exit;        
+    } elseif ($_GET['user_type'] == 'announcement'){
+      $last_date = isset($_GET['date'])?$_GET['date']:'';
+      if ($last_date != ''){
+        $sql = "SELECT * FROM announcement WHERE date_published>'$last_date'";  
+      } else {
+        $sql = "SELECT * FROM announcement";
+      }
+      
+      //get a list of all registered personnel
+      $announcements = Announcement::find_by_sql($sql);
+
+      foreach($announcements as $announcement){
+          $response[] = $announcement->get_array(); 
+        }
+
     }
 
 
