@@ -182,7 +182,7 @@
 
     }
 
-
+        header('Content-type: application/json');
         echo json_encode($response);
   }else {
         //if USER TYPE is not specified
