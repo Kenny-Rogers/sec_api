@@ -185,11 +185,13 @@
         header('Content-type: application/json');
         echo json_encode($response);
   }else {
+    
+        header("Content-Type: application/json");
         //if USER TYPE is not specified
         echo json_encode(array("status" => 0, "message" => "no user type specified in url"));
         return; 
   }
         
 
-    header("Content-Type: application/json");
+   
 ?>

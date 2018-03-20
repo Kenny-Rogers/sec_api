@@ -15,7 +15,7 @@
                 $geo_long = $_POST['geo_long'];
 
                 //checking from the db
-                $condition = " team_id='$team_id' AND team_id IN ".
+                $condition = " user_id='$team_id' AND user_id IN ".
                 "(SELECT id FROM patrol_team WHERE status='online' AND expiration='false')"; 
                 $array = Location::find_all_with($condition);
                 $team_location = array_shift($array);
