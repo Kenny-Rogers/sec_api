@@ -16,6 +16,7 @@
       } elseif ($user_type == 'secretariat') {
         //registeration for personnel
         $user = new Secretariat(); 
+        $user->set_field("date_published", strftime("%Y-%m-%d", time()));
       } elseif ($user_type == 'system_user') {
         //registeration for personnel
         $user = new SystemUser(); 

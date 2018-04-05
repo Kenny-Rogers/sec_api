@@ -77,9 +77,20 @@
           $index++;
         }
     } elseif ($_GET['user_type'] == 'secretariat'){
-      //get a list of all registered personnel
-      $secretariats = Secretariat::find_all();
+      //check if request came with a date
+      $last_date = isset($_GET['date'])?$_GET['date']:'';
+      if ($last_date != ''){
+        //then use date
+        $sql = "SELECT * FROM secretariat WHERE date_published>'$last_date'";  
+        $secretariats = Secretariat::find_by_sql($sql);
 
+      } else {
+        //else provide all the secs
+        $secretariats = Secretariat::find_all();
+
+      }
+
+      
       foreach($secretariats as $secretariat){
           $response[] = $secretariat->get_array(); 
         }
