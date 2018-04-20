@@ -37,4 +37,10 @@
         }
 
     }
+
+    function mysql_datetime_format($dt = ""){
+    $mysql_date = strftime("%Y-%m-%d %H:%M:%S", $dt);
+    return $mysql_date;
+    }
+
 ?>

@@ -40,9 +40,9 @@
       }elseif ($user_type == 'location') {
         //registeration for location
         $user = new Location(); 
-      }elseif ($user_type == 'complainant') {
-        //registeration for location
-        $user = new Complainant(); 
+      }elseif ($user_type == 'complaint') {
+        //registeration for complaint
+        $complaint = new Complain(); 
       } else {
         //if USER TYPE is not specified
         echo json_encode(array("status" => 0, "message" => "no user type specified in url"));
@@ -61,7 +61,27 @@
         return; 
       }
 
-      $user->set_fields($decoded);
+      if($user_type == "complaint"){
+          //create complaint object
+          $complaint->set_field("nature_of_issue", $decoded['nature_of_issue']);
+          $complaint->set_field("type_issue", $decoded['type_issue']);
+          $complaint->set_field("complainant_id", $decoded['complainant_id']);
+          $complaint->set_field('date_time_of_report', mysql_datetime_format(time()));
+          $complaint->create();
+
+          //create location object
+          $user = new Location();
+          $user->set_field("geo_lat", $decoded['lat']);
+          $user->set_field("geo_long", $decoded['lng']);
+          $user->set_update_time();
+          $user->set_field("type_of_user", "complainant");
+          $user->set_field("user_id", $complaint->get_field("id"));
+      } else {
+        //set the fields of object with the data submitted 
+        $user->set_fields($decoded);
+      }
+      
+
       if ($user_type == 'dep_plan') {
         //registeration for deployment_plan
         $date = $user->get_field("schedule_for_date");
