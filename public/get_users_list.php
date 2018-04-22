@@ -191,6 +191,12 @@
           $response[] = $announcement->get_array(); 
         }
 
+    } elseif ($_GET['user_type'] == 'complaint'){
+        $sql = "SELECT c.* FROM complain c JOIN complain_action ca ON NOT c.id=ca.complain_id ";
+        $complains = Complain::find_by_sql($sql);
+        foreach ($complains as $complain) {
+          $response[] = $complain->get_array();
+        }
     }
 
         header('Content-type: application/json');

@@ -19,5 +19,7 @@
     require('../includes/models/message.php');
     require('../includes/models/announcement.php');
     require('../includes/models/complain.php');
+    require '../includes/models/complain_action.php';
+
 
 ?>
