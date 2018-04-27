@@ -7,6 +7,7 @@
     require('../includes/core/functions.php');
 
     //models classes
+    require('../includes/models/complain_action.php');
     require('../includes/models/complainant.php');
     require('../includes/models/personnel.php');
     require('../includes/models/system_user.php');
@@ -19,7 +20,7 @@
     require('../includes/models/message.php');
     require('../includes/models/announcement.php');
     require('../includes/models/complain.php');
-    require '../includes/models/complain_action.php';
+    
 
 
 ?>

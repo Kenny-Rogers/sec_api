@@ -27,22 +27,24 @@
         $user->set_field("expiration", "false");
         $user->set_field("status", "offline");
         $user->set_field("date_created", '2017-10-10');
-      }  elseif ($user_type == 'patrol_team_assign') {
+      } elseif ($user_type == 'patrol_team_assign') {
         //registeration for personnel
         $user = new PatrolTeamMember(); 
-      }  elseif ($user_type == 'dep_plan') {
+      } elseif ($user_type == 'dep_plan') {
         //registeration for personnel
         $user = new DeploymentPlan(); 
         $user->set_field("date_created", get_current_date('d'));
       } elseif ($user_type == 'enroll_team') {
         //registeration for personnel
         $user = new Enrollment(); 
-      }elseif ($user_type == 'location') {
+      } elseif ($user_type == 'location') {
         //registeration for location
         $user = new Location(); 
-      }elseif ($user_type == 'complaint') {
+      } elseif ($user_type == 'complaint') {
         //registeration for complaint
         $complaint = new Complain(); 
+      } elseif ($user_type == 'complain_action') {
+        $user = new ComplainAction();
       } else {
         //if USER TYPE is not specified
         echo json_encode(array("status" => 0, "message" => "no user type specified in url"));
@@ -89,6 +91,8 @@
       } elseif ($user_type == "location"){
         //setting the last_updated time
         $user->set_update_time(); 
+      } elseif ($user_type == "complain_action"){
+        $user->set_field("date_time_of_action", mysql_datetime_format(time()));
       }
 
       //creating a new user
