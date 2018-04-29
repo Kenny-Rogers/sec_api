@@ -229,7 +229,8 @@
     } elseif ($_GET['user_type'] == 'patrol_complainant'){ 
       $patrol_team_id = $_GET["patrol_team_id"];
       $sql = "SELECT c.* FROM complain c JOIN complain_action ca ON c.id=ca.complain_id "
-            ."WHERE ca.personnel_id='{$patrol_team_id}'";
+            ."WHERE ca.personnel_id='{$patrol_team_id}' AND ca.details_of_action='' "
+            ."ORDER BY c.id DESC";
       $complaints = Complain::find_by_sql($sql);
       if (!$complaints){
         $response["status"] = 1;
@@ -243,14 +244,40 @@
           $sql = "SELECT * FROM location WHERE type_of_user='complain' AND user_id='{$complaint->get_field("id")}'";
           $location = Location::find_by_sql($sql);
           $location = array_shift($location);
-          $complaint_objects["complaint"] = $complaint->get_array();
+          $complainant = Complainant::find_by_id($complaint->get_field("complainant_id"));
           $complaint_objects["location"] = $location->get_array();
+          $complaint_objects["complaint"] = $complaint->get_array();
+          $complaint_objects["complainant"] =  $complainant->get_array();
           $response["complaint_objects"][$i] = $complaint_objects;
           $i++;
         }
       }
-
+    } elseif($_GET['user_type'] == 'patrol_complainant_detail') {
+      $complaint_id = $_GET["complaint_id"];
+      $sql = "SELECT c.* FROM complain c JOIN complain_action ca ON c.id=ca.complain_id "
+            ."WHERE ca.personnel_id='{$patrol_team_id}'";
+      $complaints = Complain::find_by_sql($sql);
+      if (!$complaints){
+        $response["status"] = 1;
+        $response["message"] = "no complaints assigned to patrol team";
+      } else {
+        $response["status"] = 0;
+        $i = 0;
+        $response["complaint_objects"] = array();
+        $complaint_objects = array();
+        foreach ($complaints as $complaint) {
+          // $sql = "SELECT * FROM location WHERE type_of_user='complain' AND user_id='{$complaint->get_field("id")}'";
+          // $location = Location::find_by_sql($sql);
+          // $location = array_shift($location);
+          // $complaint_objects["location"] = $location->get_array();
+          $complaint_objects["complaint"] = $complaint->get_array();
+          $response["complaint_objects"][$i] = $complaint_objects;
+          $i++;
+        }
+      }
     }
+       
+    
         header('Content-type: application/json');
         echo json_encode($response);
   }else {

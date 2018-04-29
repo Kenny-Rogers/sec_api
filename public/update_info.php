@@ -39,6 +39,21 @@
                 # code...
                 break;
 
+            case 'complain_action':
+                $id = $_POST['id'];
+                $details_of_action = $_POST['details_of_action'];
+                $sql = "SELECT * FROM complain_action WHERE complain_id='$id'";
+                $object = ComplainAction::find_by_sql($sql);
+                $complain_action = array_shift($object);
+                $complain_action->set_field("details_of_action", $details_of_action);
+                
+                if($complain_action->update()){
+                    echo json_encode(array("status" => 0, "message" => "details updated successfully")); 
+                }else{
+                    echo json_encode(array("status" => 1, "message" => "details failed to update"));
+                }   
+                break;
+
             default:
                  echo json_encode(array("status" => 4, "message" => "no user type specified"));
                  return;
