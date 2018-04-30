@@ -9,6 +9,7 @@
     //models classes
     require('../includes/models/complain_action.php');
     require('../includes/models/complainant.php');
+    require('../includes/models/complaint_media.php');
     require('../includes/models/personnel.php');
     require('../includes/models/system_user.php');
     require('../includes/models/secretariat.php');
@@ -21,6 +22,5 @@
     require('../includes/models/announcement.php');
     require('../includes/models/complain.php');
     
-
-
+    
 ?>

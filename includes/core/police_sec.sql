@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 20, 2018 at 04:25 AM
+-- Generation Time: Apr 30, 2018 at 09:59 AM
 -- Server version: 10.2.14-MariaDB
 -- PHP Version: 7.1.16
 
@@ -68,8 +68,8 @@ CREATE TABLE `complain` (
 --
 
 INSERT INTO `complain` (`id`, `nature_of_issue`, `complainant_id`, `type_issue`, `date_time_of_report`) VALUES
-(1, 'home fight', '2', '1', '2018-02-09 10:20:20'),
-(2, 'school fight', '1', '1', '2018-02-09 10:20:20'),
+(1, 'home fight', '2', 'Domestic Violence', '2018-02-09 10:20:20'),
+(2, 'school fight', '1', 'Domestic Violence', '2018-02-09 10:20:20'),
 (3, 'fhj', '14', 'Armed Robbery', '2018-04-20 04:20:30');
 
 -- --------------------------------------------------------
@@ -107,16 +107,38 @@ INSERT INTO `complainant` (`id`, `first_name`, `last_name`, `other_names`, `emai
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `complaint_media`
+--
+
+CREATE TABLE `complaint_media` (
+  `id` int(11) NOT NULL,
+  `complaint_id` int(11) NOT NULL,
+  `media_type` varchar(500) NOT NULL,
+  `media_name` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `complain_action`
 --
 
 CREATE TABLE `complain_action` (
   `id` int(11) NOT NULL,
   `personnel_id` int(11) NOT NULL,
-  `type_of_action` int(11) NOT NULL,
+  `type_of_action` varchar(500) NOT NULL,
   `date_time_of_action` datetime NOT NULL,
-  `details_of_action` varchar(1000) NOT NULL
+  `details_of_action` varchar(1000) NOT NULL,
+  `complain_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `complain_action`
+--
+
+INSERT INTO `complain_action` (`id`, `personnel_id`, `type_of_action`, `date_time_of_action`, `details_of_action`, `complain_id`) VALUES
+(3, 2, 'assignment', '2018-04-26 08:19:21', '', 3),
+(4, 2, 'assignment', '2018-04-26 15:44:05', ' ', 1);
 
 -- --------------------------------------------------------
 
@@ -187,8 +209,9 @@ INSERT INTO `location` (`id`, `geo_lat`, `geo_long`, `user_id`, `last_updated`, 
 (82, '5.6563825', '-0.1811177', 4, '2018-03-20 22:34:22', 'patrol_team '),
 (83, '5.6563825', '-0.1811177', 4, '2018-03-20 22:34:24', 'patrol_team '),
 (84, '5.6563825', '-0.1811177', 4, '2018-03-20 22:34:27', 'patrol_team '),
-(85, '5.6563825', '-0.1811177', 4, '2018-03-20 22:34:29', 'patrol_team '),
-(110, '5.5779457', '5.5779457', 3, '2018-04-20 04:20:30', 'complainant ');
+(85, '5.6563825', '-0.1811177', 2, '2018-03-20 22:34:29', 'patrol_team '),
+(110, '5.6563825', '-0.1811177', 3, '2018-04-20 04:20:30', 'complain'),
+(111, '5.6563825', '-0.1811177', 1, '2018-04-20 04:20:30', 'complain');
 
 -- --------------------------------------------------------
 
@@ -227,7 +250,7 @@ INSERT INTO `patrol_team` (`id`, `date_created`, `leader_id`, `team_name`, `pass
 (1, '2017-10-10', 16, 'Alpha_tango_1', '236', 'offline', 'false'),
 (2, '2017-10-10', 8, 'alpha_tango_7', 'xccxc', 'online', 'false'),
 (3, '2017-10-10', 4, 'tango_6', 'jokidf', 'offline', 'false'),
-(4, '2017-10-10', 15, 'bates', 'asasa', 'online', 'false');
+(4, '2017-10-10', 15, 'bates', 'asasa', 'offline', 'false');
 
 -- --------------------------------------------------------
 
@@ -379,6 +402,12 @@ ALTER TABLE `complainant`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `complaint_media`
+--
+ALTER TABLE `complaint_media`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `complain_action`
 --
 ALTER TABLE `complain_action`
@@ -467,6 +496,18 @@ ALTER TABLE `complainant`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
+-- AUTO_INCREMENT for table `complaint_media`
+--
+ALTER TABLE `complaint_media`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `complain_action`
+--
+ALTER TABLE `complain_action`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `deployment_plan`
 --
 ALTER TABLE `deployment_plan`
@@ -482,7 +523,7 @@ ALTER TABLE `enrollment`
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT for table `patrol_team`
