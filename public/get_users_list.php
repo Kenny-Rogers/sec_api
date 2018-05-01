@@ -275,8 +275,13 @@
           $i++;
         }
       }
-    }
-       
+    } elseif ($_GET['user_type'] == 'complaint_media'){ 
+      $complaint_id = isset($_GET['complaint_id']) ? $_GET['complaint_id'] : '';
+      $sql = "SELECT * FROM complaint_media WHERE complaint_id='{$complaint_id}'";
+      $object = ComplaintMedia::find_by_sql($sql);
+      $complaint_media = array_shift($object);
+      $response = $complaint_media->get_array();
+    } 
     
         header('Content-type: application/json');
         echo json_encode($response);

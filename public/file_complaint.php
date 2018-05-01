@@ -19,7 +19,7 @@
     $location->set_field("geo_lat", $_POST['lat']);
     $location->set_field("geo_long", $_POST['lng']);
     $location->set_update_time();
-    $location->set_field("type_of_user", "complainant");
+    $location->set_field("type_of_user", "complain");
     $location->set_field("user_id", $complaint->get_field("id"));
 
     //create new ComplaintMedia object
