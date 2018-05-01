@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 30, 2018 at 09:59 AM
+-- Generation Time: May 01, 2018 at 04:16 AM
 -- Server version: 10.2.14-MariaDB
 -- PHP Version: 7.1.16
 
@@ -70,7 +70,16 @@ CREATE TABLE `complain` (
 INSERT INTO `complain` (`id`, `nature_of_issue`, `complainant_id`, `type_issue`, `date_time_of_report`) VALUES
 (1, 'home fight', '2', 'Domestic Violence', '2018-02-09 10:20:20'),
 (2, 'school fight', '1', 'Domestic Violence', '2018-02-09 10:20:20'),
-(3, 'fhj', '14', 'Armed Robbery', '2018-04-20 04:20:30');
+(3, 'fhj', '14', 'Armed Robbery', '2018-04-20 04:20:30'),
+(4, 'attackertss', '14', 'Armed Robbery', '2018-04-30 10:14:36'),
+(15, 'dghj', '14', 'Armed Robbery', '2018-04-30 16:09:30'),
+(16, 'dgkln', '14', 'Road Accident', '2018-04-30 16:12:19'),
+(17, 'fhjj', '14', 'Armed Robbery', '2018-04-30 16:18:08'),
+(18, 'fvsn', '14', 'Armed Robbery', '2018-04-30 16:20:55'),
+(19, 'vxb', '14', 'Armed Robbery', '2018-04-30 16:22:02'),
+(20, 'fvnji', '14', 'Road Accident', '2018-04-30 16:56:35'),
+(21, 'dvyb', '14', 'Road Accident', '2018-04-30 17:01:31'),
+(22, 'vddkkd', '14', 'Armed Robbery', '2018-05-01 04:04:04');
 
 -- --------------------------------------------------------
 
@@ -116,6 +125,16 @@ CREATE TABLE `complaint_media` (
   `media_type` varchar(500) NOT NULL,
   `media_name` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `complaint_media`
+--
+
+INSERT INTO `complaint_media` (`id`, `complaint_id`, `media_type`, `media_name`) VALUES
+(2, 19, 'image/png', 'file_5909_19.png '),
+(3, 20, 'image/gif', 'file_5892_20.gif '),
+(4, 21, 'image/gif', 'file_6545_21.gif '),
+(5, 22, 'video/mp4', 'file_8944_22.mp4 ');
 
 -- --------------------------------------------------------
 
@@ -211,7 +230,16 @@ INSERT INTO `location` (`id`, `geo_lat`, `geo_long`, `user_id`, `last_updated`, 
 (84, '5.6563825', '-0.1811177', 4, '2018-03-20 22:34:27', 'patrol_team '),
 (85, '5.6563825', '-0.1811177', 2, '2018-03-20 22:34:29', 'patrol_team '),
 (110, '5.6563825', '-0.1811177', 3, '2018-04-20 04:20:30', 'complain'),
-(111, '5.6563825', '-0.1811177', 1, '2018-04-20 04:20:30', 'complain');
+(111, '5.6563825', '-0.1811177', 1, '2018-04-20 04:20:30', 'complain'),
+(112, '5.6576792', '-0.1811177', 4, '2018-04-30 10:14:36', 'complain'),
+(121, '5.6576792', '-0.1812211', 15, '2018-04-30 16:09:32', 'complain'),
+(122, '5.6564378', '-0.1812249', 16, '2018-04-30 16:12:19', 'complain'),
+(123, '5.6563495', '-0.1807245', 17, '2018-04-30 16:18:08', 'complain'),
+(124, '5.6564008', '-0.1812378', 18, '2018-04-30 16:20:55', 'complain'),
+(125, '5.6564008', '-0.1812378', 19, '2018-04-30 16:22:02', 'complain'),
+(126, '5.6563861', '-0.1811517', 20, '2018-04-30 16:56:35', 'complain'),
+(127, '5.656458', '-0.1810046', 21, '2018-04-30 17:01:31', 'complain'),
+(128, '5.6564556', '-0.1813438', 22, '2018-05-01 04:04:04', 'complain ');
 
 -- --------------------------------------------------------
 
@@ -487,7 +515,7 @@ ALTER TABLE `announcement`
 -- AUTO_INCREMENT for table `complain`
 --
 ALTER TABLE `complain`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `complainant`
@@ -499,7 +527,7 @@ ALTER TABLE `complainant`
 -- AUTO_INCREMENT for table `complaint_media`
 --
 ALTER TABLE `complaint_media`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `complain_action`
@@ -523,7 +551,7 @@ ALTER TABLE `enrollment`
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `patrol_team`
