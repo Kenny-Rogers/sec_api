@@ -241,10 +241,20 @@
         $response["complaint_objects"] = array();
         $complaint_objects = array();
         foreach ($complaints as $complaint) {
+          $complaint_objects = array();
           $sql = "SELECT * FROM location WHERE type_of_user='complain' AND user_id='{$complaint->get_field("id")}'";
           $location = Location::find_by_sql($sql);
           $location = array_shift($location);
           $complainant = Complainant::find_by_id($complaint->get_field("complainant_id"));
+          $sql = "SELECT * FROM complaint_media WHERE complaint_id='".$complaint->get_field("id")."'";
+          //  echo $sql;
+          $object = array(); 
+          $object = ComplaintMedia::find_by_sql($sql);
+          if(count($object) != 0){
+            $complaint_media = array_shift($object);
+            $complaint_objects["complaint_media"] = $complaint_media->get_array();
+            $complain_media = array();
+          } 
           $complaint_objects["location"] = $location->get_array();
           $complaint_objects["complaint"] = $complaint->get_array();
           $complaint_objects["complainant"] =  $complainant->get_array();
