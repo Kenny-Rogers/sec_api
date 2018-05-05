@@ -20,11 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $uploadpath) && 
         $announcement->create()) {
-        echo json_encode(array("status" => 1, "message" => "operation successfull"));
+        header("location:../../final_proj_admin1/public/index.php?page=make_ann&status=success");
     } else {
-        echo json_encode(array("status" => 0, "message" => "operation failed"));
+        header("location:../../final_proj_admin1/public/index.php?page=make_ann&status=fail");
     }
 } else {
-    echo json_encode(array("status" => 0, "message" => "no request method failed"));
+    header("location:../../final_proj_admin1/public/index.php?page=make_ann&status=fail");
 }
 ?>
