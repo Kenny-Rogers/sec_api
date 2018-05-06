@@ -9,8 +9,9 @@
 
     
     if ($_GET['user_type'] == 'personnel'){
-      //get a list of all registered personnel
-      $personnels = Personnel::find_all();
+       //get a list of all registered personnel
+        $personnels = Personnel::find_all();
+      
 
       foreach($personnels as $personel){
           $response[] = $personel->get_array(); 

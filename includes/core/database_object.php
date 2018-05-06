@@ -75,7 +75,7 @@ class DatabaseObject
     {
         global $database;
 
-        $sql="DELETE FROM ".static::$table_name." WHERE id=".$database->escape_value($this->id);
+        $sql="DELETE FROM ".static::$table_name." WHERE id=".$database->escape_value($this->get_field("id"));
         $sql.=" LIMIT 1";
         $database->query($sql);
         return($database->affected_rows()==1)? true : false;
