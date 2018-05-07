@@ -28,6 +28,10 @@
         $personel = Personnel::find_by_id($_GET['uid']);
         $response = $personel->get_array(); 
     
+    }elseif( $_GET['user_type'] == 'dep_plan' ){
+        $dep_plan = DeploymentPlan::find_by_id($_GET['uid']);
+        $response = $dep_plan->get_array(); 
+    
     }
 
 

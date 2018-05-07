@@ -91,9 +91,8 @@
 
       }
 
-      
       foreach($secretariats as $secretariat){
-          $response[] = $secretariat->get_array(); 
+          $response[] = $secretariat->get_array();
         }
 
     } elseif ($_GET['user_type'] == 'patrol_team'){
@@ -114,8 +113,15 @@
       //get a list of all registered personnel
       $dep_plans = DeploymentPlan::find_all();
 
+      $index=0;
       foreach($dep_plans as $dep_plan){
-          $response[] = $dep_plan->get_array(); 
+          $sql = "SELECT * FROM enrollment WHERE dep_plan_id='".$dep_plan->get_field("id")."'";
+          $results = Enrollment::find_by_sql($sql);
+          $team_counts = count($results);
+          $array = $dep_plan->get_array();
+          $array["count"] = $team_counts;
+          $response[$index] = $array;
+          $index++;
         }
 
     } elseif ($_GET['user_type'] == 'location') {

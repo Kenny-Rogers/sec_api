@@ -22,7 +22,24 @@
 
     if($user_type == 'personnel'){
         $delete_data = Personnel::find_by_id($decoded['id']);
-    }elseif($user_type == 'complainant'){}
+        $sql = "SELECT * FROM system_user WHERE personnel_id='".$decoded['id']."'";
+        $result = SystemUser::find_by_sql($sql);
+        if(count($result) != 0){
+          foreach($result as $res){
+            $system_user = $res;
+            $system_user->delete();
+          }
+        }
+    }elseif($user_type == 'dep_plan'){
+        $delete_data = DeploymentPlan::find_by_id($decoded['id']);
+        $sql = "SELECT * FROM enrollment WHERE dep_plan_id='".$decoded['id']."'";
+        $enrollments = Enrollment::find_by_sql($sql);
+        if(count($enrollments) !=0){
+          foreach ($enrollments as $enrollment) {
+            $enrollment->delete();
+          }
+        }
+    }
 
     if($delete_data->delete()){
        echo json_encode(array("status" => 1, "message" => "operation successful"));

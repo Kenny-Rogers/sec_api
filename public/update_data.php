@@ -22,10 +22,14 @@
 
     if($user_type == 'personnel'){
         $update_data = Personnel::find_by_id($decoded['id']);
-        foreach ($decoded as $key => $value) {
-            $update_data->set_field($key, $value);
-        }
-    }elseif($user_type == 'complainant'){}
+    }elseif($user_type == 'dep_plan'){
+        $update_data = DeploymentPlan::find_by_id($decoded['id']);
+    }
+
+      
+    foreach ($decoded as $key => $value) {
+          $update_data->set_field($key, $value);
+      }
 
     if($update_data->update()){
        echo json_encode(array("status" => 1, "message" => "operation successful"));
