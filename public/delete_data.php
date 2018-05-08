@@ -39,6 +39,8 @@
             $enrollment->delete();
           }
         }
+    }elseif($user_type == 'secretariat'){
+      $delete_data = Secretariat::find_by_id($decoded['id']);
     }
 
     if($delete_data->delete()){
