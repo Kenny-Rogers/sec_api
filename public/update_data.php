@@ -24,6 +24,10 @@
         $update_data = Personnel::find_by_id($decoded['id']);
     }elseif($user_type == 'dep_plan'){
         $update_data = DeploymentPlan::find_by_id($decoded['id']);
+    }elseif($user_type == 'secretariat'){
+        $update_data = Secretariat::find_by_id($decoded['id']);
+    }elseif($user_type == 'user'){
+        $update_data = SystemUser::find_by_id($decoded['id']);
     }
 
       

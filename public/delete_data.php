@@ -41,6 +41,8 @@
         }
     }elseif($user_type == 'secretariat'){
       $delete_data = Secretariat::find_by_id($decoded['id']);
+    }elseif($user_type == 'user'){
+        $delete_data = SystemUser::find_by_id($decoded['id']);
     }
 
     if($delete_data->delete()){
