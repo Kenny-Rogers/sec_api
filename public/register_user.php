@@ -93,6 +93,15 @@
         $user->set_update_time(); 
       } elseif ($user_type == "complain_action"){
         $user->set_field("date_time_of_action", mysql_datetime_format(time()));
+        $complaint = Complain::find_by_id($decoded['complain_id']);
+        $complainant_id = $complaint->get_field("complainant_id");
+        $complainant = Complainant::find_by_id($complainant_id);
+        $telephone = $complainant->get_field("telephone");
+        $number = "233".$telephone;
+        $message = "Hello Citizen,\nYour complaint has been received."
+                  ."A patrol team has been assigned to your complaint and is currently working on it"
+                  ."Please stay calm. ";
+        Message::send_message($number, $message);
       }
 
       //creating a new user

@@ -222,7 +222,7 @@
       if ($complaint_id != '') {
           $sql = "SELECT * FROM complain WHERE id='{$complaint_id}'";
       } else {
-          $sql = "SELECT * FROM complain WHERE id NOT IN (SELECT id FROM complain_action)";
+          $sql = "SELECT * FROM complain WHERE id NOT IN (SELECT complain_id FROM complain_action)";
       }
 
       $complains = Complain::find_by_sql($sql);
@@ -298,7 +298,18 @@
       $object = ComplaintMedia::find_by_sql($sql);
       $complaint_media = array_shift($object);
       $response = $complaint_media->get_array();
-    } 
+    } elseif ($_GET['user_type'] == 'generate_report'){
+      $complain_actions = ComplainAction::find_all();
+      $index = 0;
+      foreach($complain_actions as $complain_action){
+          $complain = Complain::find_by_id($complain_action->get_field("complain_id"));
+          $complainant = Complainant::find_by_id($complain->get_field("complainant_id"));
+          $response[$index]["complainant"] = $complainant->get_array();
+          $response[$index]["complain"] = $complain->get_array();
+          $response[$index]["complain_action"] = $complain_action->get_array();
+          $index++;
+      }
+    }
     
         header('Content-type: application/json');
         echo json_encode($response);

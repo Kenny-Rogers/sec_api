@@ -4,6 +4,7 @@
 
     //checking if the info is submitted via POST
     if(isset($_POST)){
+        // print_r($_POST);
         //recieve the type of user trying to login
         $user_type = $_POST['user_type'];
 
@@ -47,6 +48,25 @@
                     echo json_encode(array("status" => 4, "message" => "login details valid")); 
                 } else {
                     echo json_encode(array("status" => 0, "message" => "login details invalid"));
+                }
+                break;
+
+        
+            case 'system_user':
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+
+                $condition = " user_name='$username' AND password='$password'";
+                $result_array = SystemUser::find_all_with($condition);
+                $system_user = array_shift($result_array);
+
+                //checking the results of the db
+                if($system_user){
+                    $id = $system_user->get_field("id");
+                    header("location:http://localhost/final_proj_admin1/public/index.php?page=default&uid=$id");
+                } else {
+                    // echo json_encode(array("status" => 0, "message" => "login details invalid"));
+                    header("location:http://localhost/final_proj_admin1/index.php?status=fail");
                 }
                 break;
 
